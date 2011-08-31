@@ -1,5 +1,5 @@
 <?php
-class Form {
+class QForm {
 	private $ignoreValidation;
 	private $formHtml;
 	private $innerHtml;
@@ -8,11 +8,11 @@ class Form {
 	private $formName;
 	private $formElements = array();
 	
-	public function __construct($name = null, $method = "post", $action = null, $ignoreVal = false) {
+	public function __construct($name = null, $method = "post", $action = null, $ignoreValidation = false) {
 		$this->formMethod = $method;
 		$this->formAction = $action;
 		$this->formName = $name;
-		$this->ignoreValidation = $ignoreVal;
+		$this->ignoreValidation = $ignoreValidation;
 	}
 	
 	//Adds elements to the form
@@ -40,35 +40,46 @@ class Form {
 		}
 	}
 	
+	//Add a label to the left of an input field
+	//TODO decide on positioning functionality
+	private function checkLabel($label, $field) {
+		return (isset($label)) ? "<label>$label</label> $field" : $field;
+	}
+	
+	public function newLine() {
+		$this->formElements[] = "<br />";
+	}
+	
 	//Adds a text field with optional name and id attributes
-	//TODO needs a label and potentially positioning for the label
-	public function addTextField($name = null, $id = null, $value = null) {
+	public function addTextField($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "textfield");
-		$this->formElements[] = "<input type='text'$name$id$value />";
+		$this->formElements[] = $this->checkLabel($label, "<input type='text'$name$id$value />");
 	}
 	
 	//Adds a textarea with optional name and id attributes
 	//TODO needs a label and potentially positioning for the label
-	public function addTextArea($name = null, $id = null, $value = null) {
+	public function addTextArea($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "textarea");
 		$this->formElements[] = "<textarea $name$id>$value</textarea>";
 	}
 	
 	//Adds a checkbox with optional name and id attributes
 	//TODO needs a label and potentially positioning for the label
-	public function addCheckbox($name = null, $id = null, $value = null) {
+	public function addCheckbox($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "checkbox");
 		$this->formElements[] = "<input type='checkbox'$name$id$value />";
 	}
 	
 	//Adds a radio button with optional name and id attributes
 	//TODO needs a label and potentially positioning for the label
-	public function addRadioButton($name = null, $id = null, $value = null) {
+	public function addRadioButton($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "radio");
 		$this->formElements[] = "<input type='radio'$name$id$value />";
 	}
 	
-	public function addPassword($name = null, $id = null, $value = null) {
+	//Adds a password field with optional name and id attributes
+	//TODO needs a label and potentially positioning for the label
+	public function addPassword($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "password");
 		$this->formElements[] = "<input type='password'$name$id$value />";
 	}
