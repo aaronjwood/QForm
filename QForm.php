@@ -1,6 +1,9 @@
 <?php
+function __autoload($class) {
+	require_once $class.".php";
+}
+
 class QForm {
-	private $ignoreValidation;
 	private $formHtml;
 	private $innerHtml;
 	private $formMethod;
@@ -8,11 +11,11 @@ class QForm {
 	private $formName;
 	private $formElements = array();
 	
-	public function __construct($name = null, $method = "post", $action = null, $ignoreValidation = false) {
+	public function __construct($method, $action, $name = null, $ignoreValidation = false) {
 		$this->formMethod = $method;
 		$this->formAction = $action;
 		$this->formName = $name;
-		$this->ignoreValidation = $ignoreValidation;
+		Util::ignoreValidation($ignoreValidation);
 	}
 	
 	//Adds elements to the form
@@ -24,40 +27,17 @@ class QForm {
 		}
 	}
 	
-	//Check to see what attributes are used/set
-	private function checkAttributes(&$value, &$name, &$id, $type) {
-		if(isset($value) && $type != "textarea") {
-			$value = " value='$value'";
-		}
-		if(isset($name)) {
-			$name = " name='$name'";
-		}
-		if(isset($id)) {
-			if(preg_match('/\s/', $id) && $this->ignoreValidation === false) {
-				die("An ID must not contain spaces to validate properly");
-			}
-			$id = " id='$id'";
-		}
-	}
-	
-	//Add a label to the left of an input field
-	//TODO decide on positioning functionality
-	private function checkLabel($label, $field) {
-		return (isset($label)) ? "<label>$label</label> $field" : $field;
+	public function addTextField($label = null, $name = null, $id = null, $value = null) {
+		$text = new TextField($label, $name, $id, $value);
+		$this->formElements[] = $text->constructElement();
 	}
 	
 	public function newLine() {
 		$this->formElements[] = "<br />";
 	}
 	
-	//Adds a text field with optional name and id attributes
-	public function addTextField($name = null, $id = null, $value = null, $label = null) {
-		$this->checkAttributes($value, $name, $id, "textfield");
-		$this->formElements[] = $this->checkLabel($label, "<input type='text'$name$id$value />");
-	}
-	
 	//Adds a textarea with optional name and id attributes
-	public function addTextArea($name = null, $id = null, $value = null, $label = null) {
+	/*public function addTextArea($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "textarea");
 		$this->formElements[] = $this->checkLabel($label, "<textarea $name$id>$value</textarea>");
 	}
@@ -78,7 +58,7 @@ class QForm {
 	public function addPassword($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "password");
 		$this->formElements[] = $this->checkLabel($label, "<input type='password'$name$id$value />");
-	}
+	}*/
 	
 	//Create the form on the page
 	public function output() {
