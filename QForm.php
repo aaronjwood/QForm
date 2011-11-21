@@ -11,7 +11,7 @@ class QForm {
 	private $formName;
 	private $formElements = array();
 	
-	public function __construct($method, $action, $name = null, $ignoreValidation = false) {
+	function __construct($method, $action, $name = null, $ignoreValidation = false) {
 		$this->formMethod = $method;
 		$this->formAction = $action;
 		$this->formName = $name;
@@ -27,14 +27,33 @@ class QForm {
 		}
 	}
 	
+	//Create the form on the page
+	public function output() {
+		$this->addElements();
+		$this->formHtml = "
+					<form method='$this->formMethod' name='$this->formName' action='$this->formAction'>
+						<fieldset>
+		$this->innerHtml
+						</fieldset>
+					</form>";
+		echo $this->formHtml;
+	}
+	
 	public function addTextField($label = null, $name = null, $id = null, $value = null) {
 		$text = new TextField($label, $name, $id, $value);
 		$this->formElements[] = $text->constructElement();
 	}
 	
+	public function addTextArea($label = null, $name = null, $id = null, $value = null) {
+		$textarea = new TextArea($label, $name, $id, $value);
+		$this->formElements[] = $textarea->constructElement();
+	}
+	
 	public function newLine() {
 		$this->formElements[] = "<br />";
 	}
+	
+	//TODO create more classes to handle different element types
 	
 	//Adds a textarea with optional name and id attributes
 	/*public function addTextArea($name = null, $id = null, $value = null, $label = null) {
@@ -60,15 +79,4 @@ class QForm {
 		$this->formElements[] = $this->checkLabel($label, "<input type='password'$name$id$value />");
 	}*/
 	
-	//Create the form on the page
-	public function output() {
-		$this->addElements();
-		$this->formHtml = "
-				<form method='$this->formMethod' name='$this->formName' action='$this->formAction'>
-					<fieldset>
-						$this->innerHtml
-					</fieldset>
-				</form>";
-		echo $this->formHtml;
-	}
 }

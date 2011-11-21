@@ -1,5 +1,5 @@
 <?php
-class TextField implements iElement {
+class TextArea implements iElement {
 	
 	private $label;
 	private $name;
@@ -17,9 +17,9 @@ class TextField implements iElement {
 	
 	//Checks the attributes, generates a label, and creates the element
 	public function constructElement() {
-		 Util::checkAttributes($this->value,$this->name, $this->id, "textfield");
-		$this->html .= Util::checkLabel($this->label, "<input type='text'$this->name$this->id$this->value />");
+		Util::checkAttributes($this->value,$this->name, $this->id, "textarea");
+		$this->html .= Util::checkLabel($this->label, "<textarea $this->name$this->id>$this->value</textarea>");
 		return $this->html;
 	}
+	
 }
-?>
