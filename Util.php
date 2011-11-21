@@ -11,6 +11,7 @@ class Util {
 	
 	//Check to see what attributes are used/set
 	public static function checkAttributes(&$value, &$name, &$id, $type) {
+		//TODO add support for textarea cols/rows
 		if(isset($value) && $type != "textarea") {
 			$value = " value='$value'";
 		}
