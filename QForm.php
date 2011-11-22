@@ -54,12 +54,7 @@ class QForm {
 	}
 	
 	//TODO create more classes to handle different element types
-	
-	//Adds a radio button with optional name and id attributes
-	public function addRadioButton($name = null, $id = null, $value = null, $label = null) {
-		$this->checkAttributes($value, $name, $id, "radio");
-		$this->formElements[] = $this->checkLabel($label, "<input type='radio'$name$id$value />");
-	}
+	//TODO Should I make the element classes more polymorphic by having an element class and generate the appropriate element based on what was passed to it, or should I stick with one class for each element?
 	
 	//Adds a password field with optional name and id attributes
 	public function addPassword($name = null, $id = null, $value = null, $label = null) {

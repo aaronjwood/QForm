@@ -15,6 +15,10 @@ $form->addElement($textArea);
 $form->newLine();
 $checkBox = new Checkbox("Checkbox", "CheckboxName", "CheckboxID", "Checkbox Value");
 $form->addElement($checkBox);
+$form->newLine();
+$radioButton = new Radio("Radio Button", "RadioButtonName", "RadioButtonID", "Radio Button Value");
+$form->addElement($radioButton);
+$form->newLine();
 $form->output();
 ?>
 </body>
