@@ -24,3 +24,4 @@ class TextArea implements iElement {
 	}
 	
 }
+?>

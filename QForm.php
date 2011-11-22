@@ -1,6 +1,11 @@
 <?php
 function __autoload($class) {
-	require_once "classes/".$class.".php";
+	if($class == "iElement") {
+		require_once "interfaces/".$class.".php";
+	}
+	else {
+		require_once "classes/".$class.".php";
+	}
 }
 
 class QForm {
@@ -39,6 +44,7 @@ class QForm {
 		echo $this->formHtml;
 	}
 	
+	//TODO needs type checking! Only objects that are also of type iElement can be passed!
 	public function addElement($object) {
 		$this->formElements[] = $object->constructElement();
 	}
@@ -48,18 +54,6 @@ class QForm {
 	}
 	
 	//TODO create more classes to handle different element types
-	
-	//Adds a textarea with optional name and id attributes
-	/*public function addTextArea($name = null, $id = null, $value = null, $label = null) {
-		$this->checkAttributes($value, $name, $id, "textarea");
-		$this->formElements[] = $this->checkLabel($label, "<textarea $name$id>$value</textarea>");
-	}
-	
-	//Adds a checkbox with optional name and id attributes
-	public function addCheckbox($name = null, $id = null, $value = null, $label = null) {
-		$this->checkAttributes($value, $name, $id, "checkbox");
-		$this->formElements[] = $this->checkLabel($label, "<input type='checkbox'$name$id$value />");
-	}
 	
 	//Adds a radio button with optional name and id attributes
 	public function addRadioButton($name = null, $id = null, $value = null, $label = null) {
@@ -71,6 +65,7 @@ class QForm {
 	public function addPassword($name = null, $id = null, $value = null, $label = null) {
 		$this->checkAttributes($value, $name, $id, "password");
 		$this->formElements[] = $this->checkLabel($label, "<input type='password'$name$id$value />");
-	}*/
+	}
 	
 }
+?>
