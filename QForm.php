@@ -1,6 +1,6 @@
 <?php
 function __autoload($class) {
-	require_once $class.".php";
+	require_once "classes/".$class.".php";
 }
 
 class QForm {
@@ -39,14 +39,8 @@ class QForm {
 		echo $this->formHtml;
 	}
 	
-	public function addTextField($label = null, $name = null, $id = null, $value = null) {
-		$text = new TextField($label, $name, $id, $value);
-		$this->formElements[] = $text->constructElement();
-	}
-	
-	public function addTextArea($label = null, $name = null, $id = null, $value = null) {
-		$textarea = new TextArea($label, $name, $id, $value);
-		$this->formElements[] = $textarea->constructElement();
+	public function addElement($object) {
+		$this->formElements[] = $object->constructElement();
 	}
 	
 	public function newLine() {

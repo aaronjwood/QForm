@@ -7,9 +7,11 @@
 <?php
 require("QForm.php");
 $form = new QForm("POST", "tester.php");
-$form->addTextField("Label", "Name", "ID", "Value");
+$textField = new TextField("Text Field", "TextFieldName", "TextFieldID", "VALUE");
+$form->addElement($textField);
 $form->newLine();
-$form->addTextArea(null, null, null, "VALUE");
+$textArea = new TextArea("Text Area", "TextAreaName", "TextAreaID", "VALUE");
+$form->addElement($textArea);
 $form->output();
 ?>
 </body>
