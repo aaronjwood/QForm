@@ -1,7 +1,7 @@
 <?php
 function __autoload($class) {
-	if($class == "iElement") {
-		require_once "interfaces/".$class.".php";
+	if($class == "Element") {
+		require_once "abstract/".$class.".php";
 	}
 	else {
 		require_once "classes/".$class.".php";
@@ -45,8 +45,8 @@ class QForm {
 	}
 	
 	//TODO needs type checking! Only objects that are also of type iElement can be passed!
-	public function addElement($object) {
-		$this->formElements[] = $object->constructElement();
+	public function addElement($element) {
+		$this->formElements[] = $element->html;
 	}
 	
 	public function newLine() {

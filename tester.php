@@ -19,6 +19,9 @@ $form->newLine();
 $radioButton = new Radio("Radio Button", "RadioButtonName", "RadioButtonID", "Radio Button Value");
 $form->addElement($radioButton);
 $form->newLine();
+$password = new Password("Password", "PasswordName", "PasswordID", "SomeValue");
+$form->addElement($password);
+$form->newLine();
 $form->output();
 ?>
 </body>
