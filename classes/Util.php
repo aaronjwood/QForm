@@ -1,5 +1,5 @@
 <?php
-class Util {
+abstract class Util {
 	
 	//Should we validate the form or not?
 	private static $ignoreValidation;
