@@ -1,11 +1,12 @@
 <?php
-class TextArea implements iElement {
+class TextArea extends Element {
 	
 	private $label;
 	private $name;
 	private $id;
 	private $value;
-	private $html;
+	
+	public $html;
 	
 	//Set the appropriate attributes based on the parameters
 	function __construct($label, $name, $id, $value) {
@@ -13,14 +14,14 @@ class TextArea implements iElement {
 		$this->name = $name;
 		$this->id = $id;
 		$this->value = $value;
+		$this->constructElement();
 	}
 	
 	//Checks the attributes, generates a label, and creates the element
-	public function constructElement() {
+	protected function constructElement() {
 		//TODO Add support for cols/rows
 		Util::checkAttributes($this->value,$this->name, $this->id, "textarea");
 		$this->html .= Util::checkLabel($this->label, "<textarea $this->name$this->id>$this->value</textarea>");
-		return $this->html;
 	}
 	
 }

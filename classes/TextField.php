@@ -1,11 +1,12 @@
 <?php
-class TextField implements iElement {
+class TextField extends Element {
 	
 	private $label;
 	private $name;
 	private $id;
 	private $value;
-	private $html;
+
+	public $html;
 	
 	//Set the appropriate attributes based on the parameters
 	function __construct($label, $name, $id, $value) {
@@ -13,13 +14,13 @@ class TextField implements iElement {
 		$this->name = $name;
 		$this->id = $id;
 		$this->value = $value;
+		$this->constructElement();
 	}
 	
 	//Checks the attributes, generates a label, and creates the element
-	public function constructElement() {
-		 Util::checkAttributes($this->value,$this->name, $this->id, "textfield");
+	protected function constructElement() {
+		Util::checkAttributes($this->value,$this->name, $this->id, "textfield");
 		$this->html .= Util::checkLabel($this->label, "<input type='text'$this->name$this->id$this->value />");
-		return $this->html;
 	}
 }
 ?>

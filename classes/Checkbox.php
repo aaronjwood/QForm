@@ -1,11 +1,12 @@
 <?php
-class Checkbox implements iElement {
+class Checkbox extends Element {
 	
 	private $label;
 	private $name;
 	private $id;
 	private $value;
-	private $html;
+	
+	public $html;
 	
 	//Set the appropriate attributes based on the parameters
 	function __construct($label, $name, $id, $value) {
@@ -13,13 +14,14 @@ class Checkbox implements iElement {
 		$this->name = $name;
 		$this->id = $id;
 		$this->value = $value;
+		$this->constructElement();
 	}
 	
 	//Checks the attributes, generates a label, and creates the element
-	public function constructElement() {
+	protected function constructElement() {
 		//TODO Add support for cols/rows
 		Util::checkAttributes($this->value,$this->name, $this->id, "checkbox");
 		$this->html .= Util::checkLabel($this->label, "<input type='checkbox'$this->name$this->id$this->value />");
-		return $this->html;
 	}
 }
+?>
