@@ -22,6 +22,8 @@ $form->newLine();
 $password = new Password("Password", "PasswordName", "PasswordID", "SomeValue");
 $form->addElement($password);
 $form->newLine();
+$submit = new Submit("Submit", "SubmitName", "SubmitId", "Submit");
+$form->addElement($submit);
 $form->output();
 ?>
 </body>

@@ -1,5 +1,5 @@
 <?php
-class Radio extends Element {
+class Submit extends Element {
 	
 	private $label;
 	private $name;
@@ -19,8 +19,8 @@ class Radio extends Element {
 	
 	//Checks the attributes, generates a label, and creates the element
 	protected function constructElement() {
-		Util::checkAttributes($this->value,$this->name, $this->id, "radio");
-		$this->html .= Util::checkLabel($this->label, "<input type='radio'$this->name$this->id$this->value />");
+		Util::checkAttributes($this->value,$this->name, $this->id, "checkbox");
+		$this->html .= Util::checkLabel($this->label, "<input type='submit'$this->name$this->id$this->value />");
 	}
 }
 ?>
