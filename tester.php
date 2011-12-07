@@ -24,6 +24,8 @@ $form->addElement($password);
 $form->newLine();
 $submit = new Submit("Submit", "SubmitName", "SubmitId", "Submit");
 $form->addElement($submit);
+$reset = new Reset("Reset", "ResetName", "ResetID", "Reset");
+$form->addElement($reset);
 $form->output();
 ?>
 </body>
