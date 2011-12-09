@@ -1,12 +1,10 @@
 <?php
 abstract class Util {
 	
-	//Should we validate the form or not?
-	private $ignoreValidation;
+	private $validate;
 	
-	//Setter
 	protected function ignoreValidation($bool) {
-		$this->ignoreValidation = $bool;
+		$this->validate = $bool;
 	}
 	
 	//Check to see what attributes are used/set
@@ -19,7 +17,7 @@ abstract class Util {
 			$name = " name='$name'";
 		}
 		if(isset($id)) {
-			if(preg_match('/\s/', $id) && self::$ignoreValidation === false) {
+			if(preg_match('/\s/', $id) && $this->validate == false) {
 				//TODO Don't kill the script; find better way to handle this issue
 				die("An ID must not contain spaces to validate properly");
 			}
