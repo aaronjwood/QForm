@@ -1,11 +1,9 @@
 <?php
 abstract class Util {
 	
-	private $validate;
-	
-	protected function ignoreValidation($bool) {
-		$this->validate = $bool;
-	}
+	//Validation option and messages
+	protected static $ignoreValidation;
+	protected static $validationMessages = array();
 	
 	//Check to see what attributes are used/set
 	protected function checkAttributes(&$value, &$name, &$id, $type) {
@@ -17,9 +15,9 @@ abstract class Util {
 			$name = " name='$name'";
 		}
 		if(isset($id)) {
-			if(preg_match('/\s/', $id) && $this->validate == false) {
-				//TODO Don't kill the script; find better way to handle this issue
-				die("An ID must not contain spaces to validate properly");
+			if(preg_match('/\s/', $id) && self::$ignoreValidation === false) {
+				//If an ID contains a space, add a message into the array
+				self::$validationMessages[] = "An ID must not contain spaces to validate properly";
 			}
 			$id = " id='$id'";
 		}
@@ -27,6 +25,7 @@ abstract class Util {
 	
 	//Add a label to the left of an input field
 	protected function checkLabel($label, $field) {
+		//If the label should be created, create it. If not, just return the field
 		return (isset($label)) ? "<label>$label</label> $field" : $field;
 	}
 }

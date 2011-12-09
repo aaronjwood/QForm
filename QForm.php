@@ -20,7 +20,7 @@ class QForm extends Util {
 		$this->formMethod = $method;
 		$this->formAction = $action;
 		$this->formName = $name;
-		$this->ignoreValidation($ignoreValidation);
+		self::$ignoreValidation = $ignoreValidation;
 	}
 	
 	//Adds elements to the form
@@ -34,13 +34,21 @@ class QForm extends Util {
 	
 	//Create the form on the page
 	public function output() {
-		$this->addElements();
-		$this->formHtml = "
-					<form method='$this->formMethod' name='$this->formName' action='$this->formAction'>
-						<fieldset>
-		$this->innerHtml
-						</fieldset>
-					</form>";
+		//If the instance is not set to ignore validation and the message array is not empty, report the validation issue
+		if(self::$ignoreValidation === false && !empty(self::$validationMessages)) {
+			foreach(self::$validationMessages as $message) {
+				$this->formHtml .= $message."<br />";
+			}
+		}
+		else {
+			$this->addElements();
+			$this->formHtml = "
+				<form method='$this->formMethod' name='$this->formName' action='$this->formAction'>
+					<fieldset>
+						$this->innerHtml
+					</fieldset>
+				</form>";
+		}
 		echo $this->formHtml;
 	}
 	
