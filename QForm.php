@@ -8,7 +8,7 @@ function __autoload($class) {
 	}
 }
 
-class QForm {
+class QForm extends Util {
 	private $formHtml;
 	private $innerHtml;
 	private $formMethod;
@@ -20,7 +20,7 @@ class QForm {
 		$this->formMethod = $method;
 		$this->formAction = $action;
 		$this->formName = $name;
-		Util::ignoreValidation($ignoreValidation);
+		$this->ignoreValidation($ignoreValidation);
 	}
 	
 	//Adds elements to the form

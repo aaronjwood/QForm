@@ -2,15 +2,15 @@
 abstract class Util {
 	
 	//Should we validate the form or not?
-	private static $ignoreValidation;
+	private $ignoreValidation;
 	
 	//Setter
-	public static function ignoreValidation($bool) {
-		self::$ignoreValidation = $bool;
+	protected function ignoreValidation($bool) {
+		$this->ignoreValidation = $bool;
 	}
 	
 	//Check to see what attributes are used/set
-	public static function checkAttributes(&$value, &$name, &$id, $type) {
+	protected function checkAttributes(&$value, &$name, &$id, $type) {
 		//TODO add support for textarea cols/rows
 		if(isset($value) && $type != "textarea") {
 			$value = " value='$value'";
@@ -28,7 +28,7 @@ abstract class Util {
 	}
 	
 	//Add a label to the left of an input field
-	public static function checkLabel($label, $field) {
+	protected function checkLabel($label, $field) {
 		return (isset($label)) ? "<label>$label</label> $field" : $field;
 	}
 }

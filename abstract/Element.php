@@ -1,5 +1,5 @@
 <?php
-abstract class Element {
+abstract class Element extends Util {
 	abstract protected function constructElement();
 }
 ?>
