@@ -52,9 +52,13 @@ class QForm extends Util {
 		echo $this->formHtml;
 	}
 	
-	//TODO needs type checking! Only objects that are also of type iElement can be passed!
 	public function addElement($element) {
-		$this->formElements[] = self::getHtml($element);
+		if($element instanceof Element) {
+			$this->formElements[] = self::getHtml($element);
+		}
+		else {
+			throw new Exception("Unsupported element added to form");
+		}
 	}
 	
 	public function newLine() {
