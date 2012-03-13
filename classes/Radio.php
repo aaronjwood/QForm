@@ -6,7 +6,7 @@ class Radio extends Element {
 	private $id;
 	private $value;
 	
-	public $html;
+	protected $html;
 	
 	//Set the appropriate attributes based on the parameters
 	function __construct($label, $name, $id, $value) {

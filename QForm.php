@@ -54,7 +54,7 @@ class QForm extends Util {
 	
 	//TODO needs type checking! Only objects that are also of type iElement can be passed!
 	public function addElement($element) {
-		$this->formElements[] = $element->html;
+		$this->formElements[] = self::getHtml($element);
 	}
 	
 	public function newLine() {

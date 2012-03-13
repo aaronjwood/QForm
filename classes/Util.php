@@ -23,6 +23,11 @@ abstract class Util {
 		}
 	}
 	
+	//Get an element's html to be used when generating the form
+	protected function getHtml($element) {
+		return $element->html;
+	}
+	
 	//Add a label to the left of an input field
 	protected function checkLabel($label, $field) {
 		//If the label should be created, create it. If not, just return the field
