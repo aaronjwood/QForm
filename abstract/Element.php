@@ -60,11 +60,11 @@ abstract class Element extends QForm {
 	 * @param string $id
 	 * @param string $value
 	 */
-	function __construct($label, $name, $id, $value) {
+	function __construct($attributes, $label = null) {
+		$this->name = $attributes['name'];
+		$this->id = $attributes['id'];
+		$this->value = $attributes['value'];
 		$this->label = $label;
-		$this->name = $name;
-		$this->id = $id;
-		$this->value = $value;
 		$this->constructElement();
 	}
 	

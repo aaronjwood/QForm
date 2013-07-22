@@ -6,26 +6,56 @@
 	<body>
 		<?php
 		require("QForm.php");
+		
 		$form = new QForm("POST", "tester.php");
-		$textField = new TextField("Text Field", "TextFieldName", "TextFieldID", "Text field value");
-		$form->addElement($textField);
+		
+		$form->addElement(new TextField(array(
+			"name" => "TextFieldName",
+			"id" => "TextFieldId",
+			"value" => "Text field value"
+		), "Text Field"));
 		$form->newLine();
-		$textArea = new TextArea("Text Area", "TextAreaName", "TextAreaID", "Textarea value");
-		$form->addElement($textArea);
+		
+		$form->addElement(new TextArea(array(
+			"name" => "TextAreaName",
+			"id" => "TextAreaId",
+			"value" => "Text area value"
+		), "Text Area"));
 		$form->newLine();
-		$checkBox = new Checkbox("Checkbox", "CheckboxName", "CheckboxID", "Checkbox Value");
-		$form->addElement($checkBox);
+		
+		$form->addElement(new Checkbox(array(
+			"name" => "CheckboxName",
+			"id" => "CheckboxId",
+			"value" => "Checkbox"
+		), "Checkbox"));
 		$form->newLine();
-		$radioButton = new Radio("Radio Button", "RadioButtonName", "RadioButtonID", "Radio Button Value");
-		$form->addElement($radioButton);
+		
+		$form->addElement(new Radio(array(
+			"name" => "RadioName",
+			"id" => "RadioId",
+			"value" => "Radio"
+		), "Radio Button"));
 		$form->newLine();
-		$password = new Password("Password", "PasswordName", "PasswordID", "SomeValue");
-		$form->addElement($password);
+		
+		$form->addElement(new Password(array(
+			"name" => "PasswordName",
+			"id" => "PasswordId",
+			"value" => "Password"
+		), "Password"));
 		$form->newLine();
-		$submit = new Submit("Submit", "SubmitName", "SubmitId", "Submit");
-		$form->addElement($submit);
-		$reset = new Reset("Reset", "ResetName", "ResetID", "Reset");
-		$form->addElement($reset);
+		
+		$form->addElement(new Submit(array(
+			"name" => "SubmitName",
+			"id" => "SubmitId",
+			"value" => "Submit"
+		), "Submit"));
+		
+		$form->addElement(new Reset(array(
+			"name" => "ResetName",
+			"id" => "ResetId",
+			"value" => "Reset"
+		), "Reset"));
+		
 		$form->output();
 		?>
 	</body>
