@@ -2,7 +2,7 @@
 
 abstract class Element extends QForm {
 	
-	//GLOBAL ATTRIBUTES
+	//GLOBAL HTML ATTRIBUTES
 	protected $accesskey;
 	protected $class;
 	protected $contenteditable; //HTML5
@@ -19,12 +19,13 @@ abstract class Element extends QForm {
 	protected $title;
 	protected $translate; //HTML5
 	
-	//ELEMENT ATTRIBUTES
+	//ELEMENT HTML ATTRIBUTES
 	protected $accept;
 	protected $alt;
 	protected $autocomplete; //HTML5
 	protected $autofocus; //HTML5
 	protected $checked;
+	protected $cols;
 	protected $disabled;
 	protected $form; //HTML5
 	protected $formaction; //HTML5
@@ -43,6 +44,7 @@ abstract class Element extends QForm {
 	protected $placeholder; //HTML5
 	protected $readonly;
 	protected $required; //HTML5
+	protected $rows;
 	protected $size;
 	protected $src;
 	protected $step; //HTML5
@@ -50,28 +52,28 @@ abstract class Element extends QForm {
 	protected $value;
 	protected $width; //HTML5
 	
+	//QFORM PROPERTIES
 	protected $label;
 	protected $html;
 	
 	/**
 	 * Creates a label and sets the appropriate attributes based on the parameters
+	 * @param array $attributes
 	 * @param string $label
-	 * @param string $name
-	 * @param string $id
-	 * @param string $value
 	 */
 	function __construct($attributes, $label = null) {
-		$this->name = $attributes['name'];
-		$this->id = $attributes['id'];
-		$this->value = $attributes['value'];
+		foreach(get_object_vars($this) as $attribute => $value) {
+			$this->$attribute = isset($attributes[$attribute]) ? $attributes[$attribute] : null;
+		}
+		
 		$this->label = $label;
-		$this->constructElement();
+		$this->constructElement(get_object_vars($this));
 	}
 	
 	/**
 	 * Checks the attributes used, generates a label, and creates the element
 	 */
-	abstract protected function constructElement();
+	abstract protected function constructElement($attributes);
 	
 }
 

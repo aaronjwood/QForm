@@ -21,6 +21,13 @@ class QForm {
 	private $formName;
 	private $formElements = array();
 	
+	/**
+	 * Sets up the form
+	 * @param string $method GET or POST
+	 * @param string $action Where to send the form data
+	 * @param string $name Optional form name
+	 * @param boolean $ignoreValidation Optional setting to force the form to be valid HTML or not
+	 */
 	function __construct($method, $action, $name = null, $ignoreValidation = false) {
 		$this->formMethod = $method;
 		$this->formAction = $action;
@@ -39,23 +46,26 @@ class QForm {
 		}
 	}
 	
-	//Check to see what attributes are used/set
-	protected function checkAttributes(&$value, &$name, &$id, $type) {
-		
+	/**
+	 * Check what attributes are being used
+	 * @param array $attributes
+	 * @param Element $type
+	 */
+	protected function checkAttributes(&$attributes, $type) {
 		//TODO add support for textarea cols/rows
-		if(isset($value) && $type != "textarea") {
-			$value = " value='$value'";
+		if(!empty($attributes['value']) && !$type instanceof TextArea) {
+			$attributes['value'] = " value='{$attributes['value']}'";
 		}
-		if(isset($name)) {
-			$name = " name='$name'";
+		if(!empty($attributes['name'])) {
+			$attributes['name'] = " name='{$attributes['name']}'";
 		}
-		if(isset($id)) {
-			if(preg_match('/\s/', $id) && self::$ignoreValidation === false) {
+		if(isset($attributes['id'])) {
+			if(preg_match('/\s/', $attributes['id']) && self::$ignoreValidation === false) {
 				
-				//If an ID contains a space, add a message into the array
+				//If an ID contains a space and we need valid HTML, add a message into the array
 				self::$validationMessages[] = "An ID must not contain spaces to validate properly";
 			}
-			$id = " id='$id'";
+			$attributes['id'] = " id='{$attributes['id']}'";
 		}
 	}
 	
